@@ -1,26 +1,12 @@
-const { response } = require('express')
+const path = require('path')
 const express = require('express')
 
 const app = express()
 
-// app.use((request, response, next) => {
-//   console.log("You are in the first middleare")
-//   next()
-// })
+const homeRoute = require('./routes/home')
 
-// app.use((request, response, next) => {
-//   console.log("You are in the second middleare")
-//   response.send('<h1>Users Page</h1>')
-// })
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use('/users', (request, response, next) => {
-  console.log("You are in middleare")
-  response.send('<p>The Middleware that handles just /users</p>')
-})
-
-app.use('/', (request, response, next) => {
-  console.log("You are in the users middleare")
-  response.send('<p>The Middleware that handles just /</p>')
-})
+app.use(homeRoute)
 
 app.listen(3000)
